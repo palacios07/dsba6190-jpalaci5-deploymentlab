@@ -4,6 +4,7 @@ locals {
     owner       = var.tag_department
     region      = var.tag_region
     environment = var.environment
+    student_name = "jpalaci5"
   }
 }
 
