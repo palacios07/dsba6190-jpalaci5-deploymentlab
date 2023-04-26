@@ -128,7 +128,7 @@ resource "azurerm_service_plan" "webapp_plan" {
 }
 
 resource "azurerm_linux_web_app" "webapp" {
-  name                = "jpalaci5-webapp-new"
+  name                = "jpalaci5-webapp-new-1"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.webapp_plan.id
