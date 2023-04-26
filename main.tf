@@ -1,9 +1,9 @@
 // Tags
 locals {
   tags = {
-    owner       = var.tag_department
-    region      = var.tag_region
-    environment = var.environment
+    owner        = var.tag_department
+    region       = var.tag_region
+    environment  = var.environment
     student_name = "jpalaci5"
   }
 }
@@ -116,45 +116,50 @@ resource "azurerm_cosmosdb_account" "db" {
   }
 }
 
-resource "azurerm_app_service_plan" "webapp_plan" {
+resource "azurerm_service_plan" "webapp_plan" {
   name                = "webapp-plan-jpalaci5"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  sku {
-    tier = "Free"
-    size = "F1"
-  }
+
+  sku_name = "B1"
+  os_type  = "Linux" # "Windows"
+  #kind     = "Linux"
+
 }
 
-resource "azurerm_app_service" "webapp" {
+resource "azurerm_linux_web_app" "webapp" {
   name                = "jpalaci5-webapp-new"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  app_service_plan_id = azurerm_app_service_plan.webapp_plan.id
+  service_plan_id = azurerm_service_plan.webapp_plan.id
+
+  site_config {}
 }
 
 output "webapp_url" {
-  value = azurerm_app_service.webapp.default_site_hostname
+  value = azurerm_linux_web_app.webapp.default_hostname
 }
 
 
-resource "azurerm_app_service_plan" "functionapp" {
+resource "azurerm_service_plan" "functionapp" {
   name                = "jpalaci5-functions-service-plan-1"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  sku {
-    tier = "Standard"
-    size = "S1"
-  }
+  sku_name = "B1"
+  os_type  = "Linux" # "Windows"
+
 }
 
-resource "azurerm_function_app" "functionapp" {
+resource "azurerm_linux_function_app" "functionapp" {
   name                       = "jpalaci5-functions"
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
-  app_service_plan_id        = azurerm_app_service_plan.functionapp.id
+  service_plan_id            = azurerm_service_plan.functionapp.id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
+  
+  site_config {}
+
 }
 
