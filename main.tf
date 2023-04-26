@@ -131,7 +131,7 @@ resource "azurerm_linux_web_app" "webapp" {
   name                = "jpalaci5-webapp-new"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  service_plan_id = azurerm_service_plan.webapp_plan.id
+  service_plan_id     = azurerm_service_plan.webapp_plan.id
 
   site_config {}
 }
@@ -158,7 +158,7 @@ resource "azurerm_linux_function_app" "functionapp" {
   service_plan_id            = azurerm_service_plan.functionapp.id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
-  
+
   site_config {}
 
 }
