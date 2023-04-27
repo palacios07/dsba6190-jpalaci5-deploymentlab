@@ -52,7 +52,7 @@ resource "azurerm_application_insights" "example" {
 }
 
 resource "azurerm_key_vault" "example" {
-  name                = "jpalaci5-workspacevault-${random_integer.deployment_id_suffix.result}-kv"
+  name                = "jpalaci5-ws-vault-${random_integer.deployment_id_suffix.result}-kv"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tenant_id           = data.azurerm_subscription.current.tenant_id
@@ -61,7 +61,7 @@ resource "azurerm_key_vault" "example" {
 
 
 resource "azurerm_machine_learning_workspace" "example" {
-  name                    = "machine-learning-ws-jpalaci5-${random_integer.deployment_id_suffix.result}-ml"
+  name                    = "ml-ws-jpalaci5-${random_integer.deployment_id_suffix.result}-ml"
   location                = azurerm_resource_group.rg.location
   resource_group_name     = azurerm_resource_group.rg.name
   application_insights_id = azurerm_application_insights.example.id
