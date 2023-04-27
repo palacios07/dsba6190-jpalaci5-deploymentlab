@@ -52,7 +52,7 @@ resource "azurerm_application_insights" "example" {
 }
 
 resource "azurerm_key_vault" "example" {
-  name                = "jpalaci5-workspacevault"
+  name                = "jpalaci5-workspacevault-${random_integer.deployment_id_suffix.result}-kv"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   tenant_id           = data.azurerm_subscription.current.tenant_id
@@ -61,7 +61,7 @@ resource "azurerm_key_vault" "example" {
 
 
 resource "azurerm_machine_learning_workspace" "example" {
-  name                    = "machine-learning-ws-jpalaci5"
+  name                    = "machine-learning-ws-jpalaci5-${random_integer.deployment_id_suffix.result}-ml"
   location                = azurerm_resource_group.rg.location
   resource_group_name     = azurerm_resource_group.rg.name
   application_insights_id = azurerm_application_insights.example.id
@@ -128,7 +128,7 @@ resource "azurerm_service_plan" "webapp_plan" {
 }
 
 resource "azurerm_linux_web_app" "webapp" {
-  name                = "jpalaci5-webapp-new-1"
+  name                = "jpalaci5-webapp-new-${random_integer.deployment_id_suffix.result}-app"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   service_plan_id     = azurerm_service_plan.webapp_plan.id
@@ -142,7 +142,7 @@ output "webapp_url" {
 
 
 resource "azurerm_service_plan" "functionapp" {
-  name                = "jpalaci5-functions-service-plan-1"
+  name                = "jpalaci5-functions-service-plan-${random_integer.deployment_id_suffix.result}-f"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
 
@@ -152,7 +152,7 @@ resource "azurerm_service_plan" "functionapp" {
 }
 
 resource "azurerm_linux_function_app" "functionapp" {
-  name                       = "jpalaci5-functions"
+  name                       = "jpalaci5-functions-${random_integer.deployment_id_suffix.result}-f-linux"
   location                   = azurerm_resource_group.rg.location
   resource_group_name        = azurerm_resource_group.rg.name
   service_plan_id            = azurerm_service_plan.functionapp.id
